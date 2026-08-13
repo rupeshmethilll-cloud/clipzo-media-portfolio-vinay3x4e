@@ -80,8 +80,8 @@ const profileData = {
       desc: "Cinematic car PPF store reels and promotional videos highlighting detailing work.",
       poster: "automotive_poster.png",
       reels: [
-        { name: "Reel 1", filename: "automotive_1.mov" },
-        { name: "Reel 2", filename: "automotive_2.mov" },
+        { name: "Reel 1", filename: "automotive_1.mp4" },
+        { name: "Reel 2", filename: "automotive_2.mp4" },
         { name: "Reel 3", filename: "automotive_3.mp4" }
       ]
     },
@@ -101,8 +101,8 @@ const profileData = {
       desc: "Promotional product and lifestyle showcases capturing premium brand details and client aesthetics.",
       poster: "brand_poster.png",
       reels: [
-        { name: "Reel 1", filename: "commercial_1.mov" },
-        { name: "Reel 2", filename: "commercial_2.mov" }
+        { name: "Reel 1", filename: "commercial_1.mp4" },
+        { name: "Reel 2", filename: "commercial_2.mp4" }
       ]
     },
     {
@@ -111,8 +111,8 @@ const profileData = {
       desc: "Emotion-filled event coverages combining storytelling shots and clean grading edits.",
       poster: "wedding_poster.png",
       reels: [
-        { name: "Reel 1", filename: "wedding_1.mov" },
-        { name: "Reel 2", filename: "wedding_2.mov" }
+        { name: "Reel 1", filename: "wedding_1.mp4" },
+        { name: "Reel 2", filename: "wedding_2.mp4" }
       ]
     },
     {
@@ -122,7 +122,7 @@ const profileData = {
       poster: "delivery_poster.png",
       reels: [
         { name: "Reel 1", filename: "delivery_1.mp4" },
-        { name: "Reel 2", filename: "delivery_2.mov" }
+        { name: "Reel 2", filename: "delivery_2.mp4" }
       ]
     }
   ]
@@ -391,49 +391,50 @@ export default function InteractivePortfolio() {
 
             {/* Footer helper */}
             <div className="w-full max-w-7xl mx-auto text-center text-[9px] font-mono text-white/30 z-20">
-              DROP REELS IN public/videos/ AS (automotive_1.mp4, automotive_2.mp4, gym_1.mp4, etc.)
+              ALL VIDEOS CONVERTED TO WEB-OPTIMIZED MP4 &bull; FAST LOADING ENFORCED
             </div>
           </section>
 
           {/* ==========================================
-              SECTION 3: SLIDESHOW (Snapping Slideshow)
+              SECTION 3: PRESENTATION GALLERY (Grid layout)
              ========================================== */}
-          {profileData.slideImages.map((src, idx) => (
-            <section
-              key={idx}
-              className="min-h-screen w-screen flex flex-col justify-center items-center p-4 bg-transparent relative border-b border-white/5 py-24"
-            >
-              {/* Slide numbering */}
-              <div className="absolute top-8 right-8 font-mono text-xs text-white/40 select-none">
-                {String(idx + 1).padStart(2, "0")} / {profileData.slideImages.length}
-              </div>
-              <div className="absolute top-8 left-8 font-mono text-[9px] tracking-widest text-white/30 uppercase select-none">
-                {profileData.personal.brand} &bull; PRESENTATION
-              </div>
+          <section className="min-h-screen w-screen flex flex-col justify-between p-6 md:p-12 relative bg-transparent border-b border-white/5 py-24">
+            {/* Header */}
+            <div className="w-full max-w-7xl mx-auto flex justify-between items-end border-b border-white/10 pb-4 z-20 mb-8">
+              <h2 className="font-display font-black text-2xl md:text-3xl text-white uppercase tracking-wider">{"// PRESENTATION GALLERY"}</h2>
+              <span className="font-mono text-[9px] text-white/40 uppercase">03 / 04</span>
+            </div>
 
-              {/* Full Uncropped Slide Container with Spring Pop-up Animation */}
-              <motion.div 
-                initial={{ opacity: 0, y: 100, scale: 0.8 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.2 }}
-                transition={springPopupConfig}
-                className="relative flex items-center justify-center max-w-[90vw] max-h-[75vh]"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={src}
-                  alt={`Clipzo Media Slide ${idx + 1}`}
-                  className="max-h-[75vh] max-w-[90vw] w-auto h-auto object-contain rounded shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/5 bg-[#050505]"
-                  loading="eager"
-                />
-              </motion.div>
+            {/* Gallery Grid - brings images close together */}
+            <div className="w-full max-w-6xl mx-auto z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 mb-12">
+              {profileData.slideImages.map((src, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: false, amount: 0.1 }}
+                  transition={springPopupConfig}
+                  className="relative aspect-[4/3] rounded overflow-hidden shadow-lg border border-white/5 bg-[#050505] group cursor-pointer hover:border-white/20 transition-all"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={src}
+                    alt={`Clipzo Media Slide ${idx + 1}`}
+                    className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute bottom-2 right-2 bg-black/60 text-white/60 font-mono text-[8px] px-1.5 py-0.5 rounded tracking-wider">
+                    {String(idx + 1).padStart(2, "0")} / {profileData.slideImages.length}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
-              {/* Slide helper */}
-              <div className="absolute bottom-8 font-mono text-[9px] text-white/20 select-none tracking-widest uppercase">
-                SCROLL TO ADVANCE PAGE
-              </div>
-            </section>
-          ))}
+            {/* Slide helper */}
+            <div className="w-full max-w-7xl mx-auto text-center text-[9px] font-mono text-white/30 z-20">
+              PORTFOLIO SHOWCASE &bull; {profileData.personal.brand} PRESENTATION
+            </div>
+          </section>
 
           {/* ==========================================
               SECTION 4: CONTACT & DETAILS
